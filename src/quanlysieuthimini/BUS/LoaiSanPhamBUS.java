@@ -61,7 +61,7 @@ public class LoaiSanPhamBUS {
         return vitri;
     }
     
-    public String[] getArrTenNhaCungCap() {
+    public String[] getArrTenLoai() {
         int size = listNcc.size();
         String[] result = new String[size];
         for (int i = 0; i < size; i++) {
@@ -70,7 +70,7 @@ public class LoaiSanPhamBUS {
         return result;
     }
 
-    public String getTenNhaCungCap(int mancc) {
+    public String getTenLoai(int mancc) {
         return this.listNcc.get(getIndexByMaNCC(mancc)).getTenLoai();
     }
     

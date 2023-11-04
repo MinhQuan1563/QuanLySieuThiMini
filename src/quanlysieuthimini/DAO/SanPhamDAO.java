@@ -4,10 +4,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.time.LocalDate;
 import quanlysieuthimini.DAO.DAOInterface.DAOInterface;
 import quanlysieuthimini.DTO.KhachHangDTO;
 import quanlysieuthimini.DTO.SanPhamDTO;
+
 
 public class SanPhamDAO implements DAOInterface<SanPhamDTO> {
 
@@ -33,8 +34,8 @@ public class SanPhamDAO implements DAOInterface<SanPhamDTO> {
                 stmt.setDouble(5,t.getDonGia());
                 stmt.setInt(6,t.getSoLuong());
                 stmt.setInt(7,t.getDungTich());
-                stmt.setDate(8, (Date) t.getNgaySanXuat());
-                stmt.setDate(9, (Date) t.getHanSuDung());
+                stmt.setObject(8,  t.getNgaySanXuat());
+                stmt.setObject(9,  t.getHanSuDung());
                 stmt.setString(10,t.getHinhAnh());
             
             result = stmt.executeUpdate()>=1;
@@ -56,7 +57,7 @@ public class SanPhamDAO implements DAOInterface<SanPhamDTO> {
                 String sql = "UPDATE sanpham SET "
                         + "MaLoai= ?,MaHang= ?,MaDV= ?,TenSP= ?,DonGia= ?,SoLuong= ?,DungTich= ?"
                         +",NgaySanXuat= ?,HanSuDung= ?,HinhAnh= ?,TrangThai= ?"
-                        + "WHERE MaSP=?";
+                        + " WHERE MaSP=?";
 
                 //Bước 2: tạo đối tượng preparedStatement
                 PreparedStatement stmt = connect.prepareStatement(sql);
@@ -68,13 +69,14 @@ public class SanPhamDAO implements DAOInterface<SanPhamDTO> {
                 stmt.setDouble(5,t.getDonGia());
                 stmt.setInt(6,t.getSoLuong());
                 stmt.setInt(7,t.getDungTich());
-                stmt.setDate(8, (Date) t.getNgaySanXuat());
-                stmt.setDate(9, (Date) t.getHanSuDung());
+                stmt.setObject(8,  t.getNgaySanXuat());
+                stmt.setObject(9, t.getHanSuDung());
                 stmt.setString(10,t.getHinhAnh());
                 stmt.setInt(11,t.getTrangThai());
                 stmt.setInt(12,t.getMaSP());
                 
                 result = stmt.executeUpdate()>=1;
+                System.out.println("Success DAO");
             } catch (SQLException ex) {
                 Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -136,8 +138,50 @@ public class SanPhamDAO implements DAOInterface<SanPhamDTO> {
                     s.setDonGia(rs.getDouble("DonGia"));
                     s.setSoLuong(rs.getInt("SoLuong"));
                     s.setDungTich(rs.getInt("DungTich"));
-                    s.setNgaySanXuat(rs.getDate("NgaySanXuat"));
-                    s.setHanSuDung(rs.getDate("HanSuDung"));
+                    s.setNgaySanXuat(rs.getDate("NgaySanXuat").toLocalDate());
+                    s.setHanSuDung(rs.getDate("HanSuDung").toLocalDate());
+                    s.setHinhAnh(rs.getString("HinhAnh"));
+                    s.setTrangThai(rs.getInt("TrangThai"));
+
+                    result.add(s);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionDB.closeConnection(connect);
+            }
+        }
+
+        return result;
+    }
+
+    public ArrayList<SanPhamDTO> selectAll() {
+        ArrayList<SanPhamDTO> result = new ArrayList<>();
+
+        Connection connect = ConnectionDB.openConnection();
+        if (connect != null) {
+
+            try {
+                String sql = "SELECT * FROM sanpham";
+
+                //Bước 2: tạo đối tượng preparedStatement
+                PreparedStatement stmt = connect.prepareStatement(sql);
+
+                ResultSet rs = stmt.executeQuery();
+
+                //Bước 3: lấy dữ liệu
+                while(rs.next()) {
+                    SanPhamDTO s = new SanPhamDTO();
+                    s.setMaSP(rs.getInt("MaSP"));
+                    s.setMaLoai(rs.getInt("MaLoai"));
+                    s.setMaHang(rs.getInt("MaHang"));
+                    s.setMaDV(rs.getInt("MaDV"));
+                    s.setTenSP(rs.getString("TenSP"));
+                    s.setDonGia(rs.getDouble("DonGia"));
+                    s.setSoLuong(rs.getInt("SoLuong"));
+                    s.setDungTich(rs.getInt("DungTich"));
+                    s.setNgaySanXuat(rs.getDate("NgaySanXuat").toLocalDate());
+                    s.setHanSuDung(rs.getDate("HanSuDung").toLocalDate());
                     s.setHinhAnh(rs.getString("HinhAnh"));
                     s.setTrangThai(rs.getInt("TrangThai"));
 
@@ -177,8 +221,8 @@ public class SanPhamDAO implements DAOInterface<SanPhamDTO> {
                     s.setDonGia(rs.getDouble("DonGia"));
                     s.setSoLuong(rs.getInt("SoLuong"));
                     s.setDungTich(rs.getInt("DungTich"));
-                    s.setNgaySanXuat(rs.getDate("NgaySanXuat"));
-                    s.setHanSuDung(rs.getDate("HanSuDung"));
+                    s.setNgaySanXuat(rs.getDate("NgaySanXuat").toLocalDate());
+                    s.setHanSuDung(rs.getDate("HanSuDung").toLocalDate());
                     s.setHinhAnh(rs.getString("HinhAnh"));
                     s.setTrangThai(rs.getInt("TrangThai"));
                 }

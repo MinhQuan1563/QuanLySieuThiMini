@@ -16,8 +16,8 @@ import quanlysieuthimini.DAO.DAOInterface.DAOInterface;
 import quanlysieuthimini.DTO.HangSanXuatDTO;
 
 public class HangSanXuatDAO implements DAOInterface<HangSanXuatDTO>{
-    public static LoaiSanPhamDAO getInstance() {
-        return new LoaiSanPhamDAO();
+    public static HangSanXuatDAO getInstance() {
+        return new HangSanXuatDAO();
     }
 
     @Override

@@ -9,7 +9,7 @@ import quanlysieuthimini.GUI.Panel.PhanQuyen;
 //import quanlysieuthimini.GUI.Panel.PhieuNhap;
 //import quanlysieuthimini.GUI.Panel.PhieuXuat;
 //import quanlysieuthimini.GUI.Panel.QuanLyThuocTinhSP;
-//import quanlysieuthimini.GUI.Panel.SanPham;
+import quanlysieuthimini.GUI.Panel.SanPham;
 import quanlysieuthimini.GUI.Panel.TaiKhoan;
 import quanlysieuthimini.GUI.Panel.BeginForm;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -42,6 +42,7 @@ public class MenuTaskbar extends JPanel {
 //    KhachHang khachHang;
     NhaCungCap nhacungcap;
     NhanVien nhanVien;
+    SanPham sanPham;
     TaiKhoan taiKhoan;
     PhanQuyen phanQuyen;
     //ThongKe thongKe;
@@ -200,7 +201,8 @@ public class MenuTaskbar extends JPanel {
         listitem[2].addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                System.out.println("SanPham");
+                sanPham = new SanPham(main);
+                main.setPanel(sanPham);
             }
         });
         

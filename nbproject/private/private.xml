@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/MINHQUAN/Workspace/NetBeansProjects/QuanLySieuThiMini2/src/quanlysieuthimini/BUS/DonViBUS.java</file>
-            <file>file:/E:/MINHQUAN/Workspace/NetBeansProjects/QuanLySieuThiMini2/src/quanlysieuthimini/BUS/NhaCungCapBUS.java</file>
-            <file>file:/E:/MINHQUAN/Workspace/NetBeansProjects/QuanLySieuThiMini2/src/quanlysieuthimini/GUI/Component/MenuTaskbar.java</file>
-            <file>file:/E:/MINHQUAN/Workspace/NetBeansProjects/QuanLySieuThiMini2/src/quanlysieuthimini/GUI/Dialog/NhaCungCapDialog.java</file>
-            <file>file:/E:/MINHQUAN/Workspace/NetBeansProjects/QuanLySieuThiMini2/src/quanlysieuthimini/BUS/HangSanXuatBUS.java</file>
-            <file>file:/E:/MINHQUAN/Workspace/NetBeansProjects/QuanLySieuThiMini2/src/quanlysieuthimini/BUS/LoaiSanPhamBUS.java</file>
-            <file>file:/E:/MINHQUAN/Workspace/NetBeansProjects/QuanLySieuThiMini2/src/database/quanlysieuthimini.sql</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/BUS/SanPhamBUS.java</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/DAO/DonViDAO.java</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/DTO/SanPhamDTO.java</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/GUI/Dialog/SanPhamDialog.java</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/GUI/Panel/SanPham.java</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/DAO/LoaiSanPhamDAO.java</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/BUS/HangSanXuatBUS.java</file>
+            <file>file:/C:/Documents/cnpm/QuanLySieuThiMini/src/quanlysieuthimini/DAO/SanPhamDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -17,6 +17,10 @@ public class NhaCungCapBUS {
         this.listNcc = NccDAO.getAll();
     }
 
+    public static NhaCungCapBUS getInstance(){
+        return new NhaCungCapBUS();
+    }
+
     public ArrayList<NhaCungCapDTO> getAll() {
         return this.listNcc;
     }

@@ -1,5 +1,6 @@
 //package GUI.Dialog;
 //
+////
 //import BUS.ChiTietSanPhamBUS;
 //import BUS.DungLuongRamBUS;
 //import BUS.DungLuongRomBUS;
@@ -8,9 +9,9 @@
 //import DTO.ChiTietSanPhamDTO;
 //import DTO.PhienBanSanPhamDTO;
 //import DTO.SanPhamDTO;
-//import GUI.Component.HeaderTitle;
-//import GUI.Component.InputForm;
-//import GUI.Component.SelectForm;
+//import quanlysieuthimini.GUI.Component.HeaderTitle;
+//import quanlysieuthimini.GUI.Component.InputForm;
+//import quanlysieuthimini.GUI.Component.SelectForm;
 //import java.awt.BorderLayout;
 //import java.awt.Color;
 //import java.awt.Dimension;
@@ -193,5 +194,5 @@
 //        } catch (ParseException ex) {
 //            Logger.getLogger(ChiTietSanPhamDialog.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//    }
+//    }                                                                               
 //}

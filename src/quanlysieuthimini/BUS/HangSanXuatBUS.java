@@ -11,7 +11,9 @@ import java.util.ArrayList;
 public class HangSanXuatBUS {
     private final HangSanXuatDAO NccDAO = new HangSanXuatDAO();
     private ArrayList<HangSanXuatDTO> listNcc = new ArrayList<>();
-    
+    public static HangSanXuatBUS getInstance(){
+        return new HangSanXuatBUS();
+    }
     public HangSanXuatBUS() {
         this.listNcc = NccDAO.getAll();
     }
@@ -61,7 +63,7 @@ public class HangSanXuatBUS {
         return vitri;
     }
     
-    public String[] getArrTenNhaCungCap() {
+    public String[] getArrTenHang() {
         int size = listNcc.size();
         String[] result = new String[size];
         for (int i = 0; i < size; i++) {
@@ -70,7 +72,7 @@ public class HangSanXuatBUS {
         return result;
     }
 
-    public String getTenNhaCungCap(int mancc) {
+    public String getTenNhaHang(int mancc) {
         return this.listNcc.get(getIndexByMaNCC(mancc)).getTenHang();
     }
     

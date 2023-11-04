@@ -2,19 +2,38 @@ package quanlysieuthimini.BUS;
 
 import quanlysieuthimini.DAO.SanPhamDAO;
 import quanlysieuthimini.DTO.SanPhamDTO;
+import quanlysieuthimini.GUI.Dialog.SanPhamDialog;
+import quanlysieuthimini.GUI.Panel.NhanVien;
+import quanlysieuthimini.GUI.Panel.SanPham;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class SanPhamBUS {
+import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
-    public final SanPhamDAO spDAO = new SanPhamDAO();
-    private ArrayList<SanPhamDTO> listSP = new ArrayList<>();
+public class SanPhamBUS{
+
+    public SanPham sp;
+    private JTextField textField;
+    public final SanPhamDAO spDAO = SanPhamDAO.getInstance();
+    private ArrayList<SanPhamDTO> listSP = SanPhamDAO.getInstance().selectAll();
 
     public SanPhamBUS() {
-        listSP = spDAO.getAll();
+
+    }
+
+    public SanPhamBUS(SanPham sp) {
+        this.sp = sp;
+    }
+
+    public SanPhamBUS(JTextField textField, SanPham sp) {
+        this.textField = textField;
+        this.sp = sp;
     }
 
     public ArrayList<SanPhamDTO> getAll() {
-        
         return this.listSP;
     }
 

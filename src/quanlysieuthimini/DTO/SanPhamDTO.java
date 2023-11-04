@@ -4,20 +4,23 @@
  */
 package quanlysieuthimini.DTO;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 
 public class SanPhamDTO {
     private int MaSP, MaLoai, MaHang, MaDV, TrangThai;
     private String TenSP, HinhAnh;
     private int SoLuong, DungTich;
-    private double DonGia;
-    private Date NgaySanXuat, HanSuDung;
 
+    @Override
+    public String toString() {
+        return "SanPhamDTO{" + "MaSP=" + MaSP + ", MaLoai=" + MaLoai + ", MaHang=" + MaHang + ", MaDV=" + MaDV + ", TrangThai=" + TrangThai + ", TenSP=" + TenSP + ", HinhAnh=" + HinhAnh + ", SoLuong=" + SoLuong + ", DungTich=" + DungTich + ", DonGia=" + DonGia + ", NgaySanXuat=" + NgaySanXuat + ", HanSuDung=" + HanSuDung + '}';
+    }
+    private double DonGia;
+    private LocalDate NgaySanXuat, HanSuDung;
     public SanPhamDTO() {
     }
 
-    public SanPhamDTO(int MaSP, int MaLoai, int MaHang, int MaDV, String TenSP, int SoLuong, int DungTich, double DonGia, Date NgaySanXuat, Date HanSuDung, String HinhAnh, int TrangThai) {
+    public SanPhamDTO(int MaSP, int MaLoai, int MaHang, int MaDV, String TenSP, int SoLuong, int DungTich, double DonGia, LocalDate NgaySanXuat, LocalDate HanSuDung, String HinhAnh, int TrangThai) {
         this.MaSP = MaSP;
         this.MaLoai = MaLoai;
         this.MaHang = MaHang;
@@ -96,19 +99,19 @@ public class SanPhamDTO {
         this.DonGia = DonGia;
     }
 
-    public Date getNgaySanXuat() {
+    public LocalDate getNgaySanXuat() {
         return NgaySanXuat;
     }
 
-    public void setNgaySanXuat(Date NgaySanXuat) {
+    public void setNgaySanXuat(LocalDate NgaySanXuat) {
         this.NgaySanXuat = NgaySanXuat;
     }
 
-    public Date getHanSuDung() {
+    public LocalDate getHanSuDung() {
         return HanSuDung;
     }
 
-    public void setHanSuDung(Date HanSuDung) {
+    public void setHanSuDung(LocalDate HanSuDung) {
         this.HanSuDung = HanSuDung;
     }
 
