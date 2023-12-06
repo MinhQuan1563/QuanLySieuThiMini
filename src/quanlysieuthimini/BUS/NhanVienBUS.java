@@ -156,10 +156,14 @@ public void importExcel(){
         BufferedInputStream excelBIS = null;
         XSSFWorkbook excelJTableImport = null;
         JFileChooser jf = new JFileChooser();
-        int result = jf.showOpenDialog(null);
         jf.setDialogTitle("Open file");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");
+        jf.setFileFilter(filter);
+        jf.setAcceptAllFileFilterUsed(false);
+        int result = jf.showOpenDialog(null);
         Workbook workbook = null;
         int k = 0;
+        int err = 0;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 excelFile = jf.getSelectedFile();
@@ -177,7 +181,6 @@ public void importExcel(){
                     String email = excelRow.getCell(2).getStringCellValue();
                     String sdt = excelRow.getCell(3).getStringCellValue();
                     String gioitinh = excelRow.getCell(4).getStringCellValue();
-                    
                     if (gioitinh.equals("Nam") || gioitinh.equals("nam")) {
                         gt = 1;
                     } else {
@@ -193,31 +196,42 @@ public void importExcel(){
                             || !Validation.isEmail(email) || Validation.isEmpty(sdt)
                             || Validation.isEmpty(sdt)
                             || sdt.length() < 10 || Validation.isEmpty(gioitinh)) {
-                        k += 1;
+                        check = 0;
                     }
                     else if(checkDup(tennv, email, sdt, gt)) {
                         check = 0;
                     }
-                    
-                    if (check != 0)  {
+                    if (check == 0) {
+                        k += 1;
+                    } else {
                         NhanVienDTO nvDTO = new NhanVienDTO(id, tennv, "", sdt, email, birth, gt, 0, "" , 1);
                         NhanVienDAO.getInstance().insert(nvDTO);
+                        insertNv(nvDTO);
                     }
                 }
 
+                if (k != 0) {
+                    JOptionPane.showMessageDialog(null, "Những dữ liệu không chuẩn không được thêm vào");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nhập dữ liệu thành công");            
+                }
             } catch (FileNotFoundException ex) {
                 System.out.println("Lỗi đọc file");
+                err =1;
             } catch (IOException ex) {
-                System.out.println("Lỗi đọc file");
+                System.out.println("Lỗi IO");
+                err=1;
             } catch (ParseException ex){
                 System.out.println(ex);
+                err=1;
+            } catch (Exception ex){
+                System.out.println("Lỗi read null");
+                System.out.println(ex);
+                err=1;
             }
-        if (k != 0) {
-            JOptionPane.showMessageDialog(null, "Những dữ liệu không chuẩn không được thêm vào");
-        } else {
-            JOptionPane.showMessageDialog(null, "Nhập dữ liệu thành công");            
-        }
-        
+            if(err != 0)
+                JOptionPane.showMessageDialog(null, "Dữ liệu không hoàn thiện!\nHủy quá trình nhập, vui lòng kiểm tra lại dữ liệu");
+            
         }
     }
 

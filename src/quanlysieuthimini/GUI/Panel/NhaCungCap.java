@@ -183,10 +183,14 @@ public final class NhaCungCap extends JPanel implements ActionListener, ItemList
         XSSFWorkbook excelJTableImport = null;
         ArrayList<NhaCungCapDTO> listExcel = new ArrayList<NhaCungCapDTO>();
         JFileChooser jf = new JFileChooser();
-        int result = jf.showOpenDialog(null);
         jf.setDialogTitle("Open file");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");
+        jf.setFileFilter(filter);
+        jf.setAcceptAllFileFilterUsed(false);
+        int result = jf.showOpenDialog(null);
         Workbook workbook = null;
         int k = 0;
+        int err = 0;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 excelFile = jf.getSelectedFile();
@@ -227,9 +231,17 @@ public final class NhaCungCap extends JPanel implements ActionListener, ItemList
                 }
             } catch (FileNotFoundException ex) {
                 System.out.println("Lỗi đọc file");
+                err = 1;
             } catch (IOException ex) {
-                System.out.println("Lỗi đọc file");
+                System.out.println("lỗi IO");
+                err = 1;
+            } catch (Exception ex){
+                System.out.println("Lỗi read null");
+                System.out.println(ex);
+                err = 1;
             }
+            if(err != 0)
+                JOptionPane.showMessageDialog(null, "Dữ liệu không hoàn thiện!\nHủy quá trình nhập, vui lòng kiểm tra lại dữ liệu");
         }
 
         loadDataTable(listncc);

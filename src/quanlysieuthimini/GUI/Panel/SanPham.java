@@ -37,6 +37,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -297,8 +298,8 @@ public final class SanPham extends JPanel implements ActionListener, ItemListene
                 Logger.getLogger(SanPham.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if(e.getSource() == mainFunction.btn.get("import")) {
-            //importExcel();
-            JOptionPane.showMessageDialog(this, "Chức năng không khả dụng !", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            importExcel();
+//            JOptionPane.showMessageDialog(this, "Chức năng không khả dụng !", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }
     @Override
@@ -315,196 +316,234 @@ public final class SanPham extends JPanel implements ActionListener, ItemListene
         }
         return index;
     }
-//    public void importExcel(){
-//        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-//        File excelFile;
-//        FileInputStream excelFIS = null;
-//        BufferedInputStream excelBIS = null;
-//        XSSFWorkbook excelJTableImport = null;
-//        JFileChooser jf = new JFileChooser();
-//        int result = jf.showOpenDialog(null);
-//        jf.setDialogTitle("Open file");
-//        Workbook workbook = null;
-//        int k = 0;
-//        if (result == JFileChooser.APPROVE_OPTION) {
-//            try {
-//                excelFile = jf.getSelectedFile();
-//                excelFIS = new FileInputStream(excelFile);
-//                excelBIS = new BufferedInputStream(excelFIS);
-//                excelJTableImport = new XSSFWorkbook(excelBIS);
-//                XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
-//
-//                for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
-//                    int check = 1;
-//                    int gt;
-//                    XSSFRow excelRow = excelSheet.getRow(row);
-//                    int masp = SanPhamDAO.getInstance().getAutoIncrement();
-//                    String maloaisp = excelRow.getCell(1).getStringCellValue();
-////                    ,mahangsx,madonvi,vtensp,vmavach,vsoluong,vdungtich,vdongia,vngaySX, vhanSD,vhinhanh
-//                    String mahangsx = excelRow.getCell(2).getStringCellValue();
-//                    String madonvi = excelRow.getCell(3).getStringCellValue();
-//                    String vtensp = excelRow.getCell(4).getStringCellValue();
-//                    String vmavach = excelRow.getCell(5).getStringCellValue();
-//                    String vsoluong = excelRow.getCell(6).getStringCellValue();
-//                    String vdungtich = excelRow.getCell(7).getStringCellValue();
-//                    String vdongia = excelRow.getCell(8).getStringCellValue();
-//                    String strngaySX = excelRow.getCell(9).getStringCellValue();
-//                    String strhanSD = excelRow.getCell(10).getStringCellValue();
-//                    Date ngaySX = (Date) formatter.parse(strngaySX);
-//                    Date hanSD = (Date) formatter.parse(strhanSD);
-//                    java.sql.Date vngaySX = new java.sql.Date(ngaySX.getTime());
-//                    java.sql.Date vhanSD = new java.sql.Date(hanSD.getTime());
-//                    System.out.println(masp);
-//                    System.out.println(vtensp);
-////                    if (Validation.isEmpty(tennv) || Validation.isEmpty(email)
-////                            || !Validation.isEmail(email) || Validation.isEmpty(sdt)
-////                            || Validation.isEmpty(sdt) || !isPhoneNumber(sdt)
-////                            || sdt.length() != 10 || Validation.isEmpty(gioitinh)) {
-////                        check = 0;
-////                    }
-//                    if (Validation.isEmpty(maloaisp) || Validation.isEmpty(mahangsx)
-//                        || Validation.isEmpty(madonvi)  || Validation.isEmpty(vtensp)
-//                        || Validation.isEmpty(vmavach)  || Validation.isEmpty(vsoluong)
-//                        || Validation.isEmpty(vdungtich)  || Validation.isEmpty(vdongia)
-//                        || Validation.isEmpty(strngaySX)  || Validation.isEmpty(strhanSD)){
-//                        check = 0;
-//                    }
-//                    if (check == 0) {
-//                        k += 1;
-//                    } else {
-//                        SanPhamDTO spDTO = new SanPhamDTO(masp,maloaisp,mahangsx,madonvi,vtensp,vmavach,vsoluong,vdungtich,vdongia,vngaySX, vhanSD,vhinhanh,1);
-//                        SanPhamDAO.getInstance().insert(spDTO);
-//                    }
-//                }
-//
-//            } catch (FileNotFoundException ex) {
-//                System.out.println("Lỗi đọc file");
-//            } catch (IOException ex) {
-//                System.out.println("Lỗi đọc file");
-//            } catch (ParseException ex){
-//                System.out.println(ex);
-//            }
-//        if (k != 0) {
-//            JOptionPane.showMessageDialog(null, "Những dữ liệu không chuẩn không được thêm vào");
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Nhập dữ liệu thành công");
-//        }
-//        }
-//    }
-//    public void exportExcel(ArrayList<SanPhamDTO> list, String[] header) {
-//        try {
-//            if (!list.isEmpty()) {
-//                JFileChooser jFileChooser = new JFileChooser();
-//                jFileChooser.setDialogTitle("Chọn đường dẫn lưu file Excel");
-//                FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");
-//                jFileChooser.setFileFilter(filter);
-//                jFileChooser.setAcceptAllFileFilterUsed(false);
-//                jFileChooser.showSaveDialog(owner);
-//                File saveFile = jFileChooser.getSelectedFile();
-//                if (saveFile != null) {
-//                    if (!saveFile.toString().toLowerCase().endsWith(".xlsx")) {
-//                        saveFile = new File(saveFile.toString() + ".xlsx");
-//                    }
-//                    Workbook wb = new XSSFWorkbook();
-//                    Sheet sheet = wb.createSheet("Sản phẩm");
-//
-//                    writeHeader(header, sheet, 0);
-//                    int rowIndex = 1;
-//                    for (SanPhamDTO sp : list) {
-//                        Row row = sheet.createRow(rowIndex++);
-//                        writeSanPham(sp, row);
-//                    }
-//                    FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
-//                    wb.write(out);
-//                    wb.close();
-//                    out.close();
-//                    openFile(saveFile.toString());
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    private static void writeHeader(String[] list, Sheet sheet, int rowIndex) {
-//        CellStyle cellStyle = createStyleForHeader(sheet);
-//        Row row = sheet.createRow(rowIndex);
-//        Cell cell;
-//        for (int i = 0; i < list.length; i++) {
-//            cell = row.createCell(i);
-//            cell.setCellStyle(cellStyle);
-//            cell.setCellValue(list[i]);
-//            sheet.autoSizeColumn(i);
-//        }
-//    }
-//    private static CellStyle createStyleForHeader(Sheet sheet) {
-//        // Create font
-//        Font font = sheet.getWorkbook().createFont();
-//        font.setFontName("Times New Roman");
-//        font.setBold(true);
-//        font.setFontHeightInPoints((short) 14); // font size
-//        font.setColor(IndexedColors.WHITE.getIndex()); // text color
-//
-//        // Create CellStyle
-//        CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-//        cellStyle.setFont(font);
-//        cellStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
-//        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//        cellStyle.setBorderBottom(BorderStyle.THIN);
-//        return cellStyle;
-//    }
-//
-//    private static void writeSanPham(SanPhamDTO nv, Row row) {
-//        CellStyle cellStyleFormatNumber = null;
-//        if (cellStyleFormatNumber == null) {
-//            // Format number
-//            short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
-//            // DataFormat df = workbook.createDataFormat();
-//            // short format = df.getFormat("#,##0");
-//
-//            //Create CellStyle
-//            Workbook workbook = row.getSheet().getWorkbook();
-//            cellStyleFormatNumber = workbook.createCellStyle();
-//            cellStyleFormatNumber.setDataFormat(format);
-//        }
-//        Cell cell = row.createCell(0);
-//        cell.setCellValue(nv.getMaSP());
-//
-//        cell = row.createCell(1);
-//        cell.setCellValue(nv.getMaLoai());
-//
-//        cell = row.createCell(2);
-//        cell.setCellValue(nv.getMaHang());
-//
-//        cell = row.createCell(3);
-//        cell.setCellValue(nv.getMaDV());
-//
-//        cell = row.createCell(4);
-//        cell.setCellValue(nv.getMaVach());
-//
-//        cell = row.createCell(5);
-//        cell.setCellValue("" + nv.getTenSP());
-//        
-//        cell = row.createCell(6);
-//        cell.setCellValue("" + nv.getDonGia());
-//        
-//        cell = row.createCell(7);
-//        cell.setCellValue("" + nv.getSoLuong());
-//        
-//        cell = row.createCell(8);
-//        cell.setCellValue("" + nv.getDungTich());
-//        
-//        cell = row.createCell(9);
-//        cell.setCellValue("" + nv.getNgaySanXuat());
-//        
-//        cell = row.createCell(10);
-//        cell.setCellValue("" + nv.getHanSuDung());
-//    }
-//    public void openFile(String file) {
-//        try {
-//            File path = new File(file);
-//            Desktop.getDesktop().open(path);
-//        } catch (IOException e) {
-//            System.out.println(e);
-//        }
-//    }
+    public void importExcel(){
+        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        File excelFile;
+        FileInputStream excelFIS = null;
+        BufferedInputStream excelBIS = null;
+        XSSFWorkbook excelJTableImport = null;
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Open file");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");
+        jf.setFileFilter(filter);
+        jf.setAcceptAllFileFilterUsed(false);
+        int result = jf.showOpenDialog(null);
+        Workbook workbook = null;
+        int k = 0;
+        int err = 0;
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+                excelFile = jf.getSelectedFile();
+                excelFIS = new FileInputStream(excelFile);
+                excelBIS = new BufferedInputStream(excelFIS);
+                excelJTableImport = new XSSFWorkbook(excelBIS);
+                XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
+
+                for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
+                    int check = 1;
+                    int gt;
+                    XSSFRow excelRow = excelSheet.getRow(row);
+                    int masp = SanPhamDAO.getInstance().getAutoIncrement();
+                    String maloaisp = excelRow.getCell(1).getStringCellValue();
+//                    ,mahangsx,madonvi,vtensp,vmavach,vsoluong,vdungtich,vdongia,vngaySX, vhanSD,vhinhanh
+                    String mahangsx = excelRow.getCell(2).getStringCellValue();
+                    String madonvi = excelRow.getCell(3).getStringCellValue();
+                    String mavach = excelRow.getCell(4).getStringCellValue();
+                    String vtensp = excelRow.getCell(5).getStringCellValue();
+                    String dongia = excelRow.getCell(6).getStringCellValue();
+                    String soluong = excelRow.getCell(7).getStringCellValue();
+                    String dungtich = excelRow.getCell(8).getStringCellValue();
+                    String strngaySX = excelRow.getCell(9).getStringCellValue();
+                    String strhanSD = excelRow.getCell(10).getStringCellValue();
+                    String vhinhanh = excelRow.getCell(11).getStringCellValue();
+                    Date ngaySX = (Date) formatter.parse(strngaySX);
+                    Date hanSD = (Date) formatter.parse(strhanSD);
+                    java.sql.Date vngaySX = new java.sql.Date(ngaySX.getTime());
+                    java.sql.Date vhanSD = new java.sql.Date(hanSD.getTime());
+                  
+                    int vmaloaisp = Integer.parseInt(maloaisp);
+                    int vmahangsx = Integer.parseInt(mahangsx);
+                    int vmadonvi = Integer.parseInt(madonvi);
+                    int vsoluong = Integer.parseInt(soluong);
+                    int vdungtich = Integer.parseInt(dungtich);
+                    double vdongia = Double.parseDouble(dongia);
+                    if (!Validation.isNumber(maloaisp) || !Validation.isNumber(mahangsx)
+                        || !Validation.isNumber(madonvi)  || Validation.isEmpty(vtensp)
+                        || !Validation.isNumber(soluong)
+                        || !Validation.isNumber(dungtich)  || !Validation.isNumber(dongia)
+                        || Validation.isEmpty(strngaySX)  || Validation.isEmpty(strhanSD)){
+                        check = 0;
+                    }else           //int MaLoai, int MaHang, int MaDV, String TenSP, String MaVach, int SoLuong, int DungTich, double DonGia, Date NgaySanXuat, Date HanSuDung
+                        if(checkDup(vmaloaisp,vmahangsx,vmadonvi,vtensp,mavach,vsoluong,vdungtich,vdongia)){
+                            check = 0;
+                            System.out.println("duplicate " + check);
+                        }
+                    if (check == 0) {
+                        k += 1;
+                    } else {
+                        SanPhamDTO spDTO = new SanPhamDTO(masp,vmaloaisp,vmahangsx,vmadonvi,vtensp,mavach,vsoluong,vdungtich,vdongia,vngaySX, vhanSD,vhinhanh,1);
+                        spBUS.add(spDTO);
+                    }
+                }
+                if (k != 0) {
+                    JOptionPane.showMessageDialog(null, "Những dữ liệu không chuẩn không được thêm vào");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nhập dữ liệu thành công");
+                }
+
+            } catch (FileNotFoundException ex) {
+                System.out.println("Lỗi đọc file");
+                System.out.println(ex);
+                err = 1;
+            } catch (IOException ex) {
+                System.out.println("Lỗi input output");
+                System.out.println(ex);
+                err = 1;
+            } catch (ParseException ex){
+                System.out.println("Lỗi parse date");
+                System.out.println(ex);
+                err = 1;
+            } catch (Exception ex){
+                System.out.println("Lỗi read null");
+                System.out.println(ex);
+                err = 1;
+            }
+            if(err != 0)
+                JOptionPane.showMessageDialog(null, "Dữ liệu không hoàn thiện!\nHủy quá trình nhập, vui lòng kiểm tra lại dữ liệu");
+        }
+        loadDataTable(listsp);
+    }
+    public boolean checkDup(int MaLoai, int MaHang, int MaDV, String TenSP, String MaVach, int SoLuong, int DungTich, double DonGia) {
+        for (SanPhamDTO sp : listsp) {
+            if (sp.getMaLoai() == MaLoai
+                && sp.getMaHang()== MaHang
+                && sp.getMaDV()== MaDV
+                && sp.getTenSP().equalsIgnoreCase(TenSP)
+                && sp.getMaVach().equalsIgnoreCase(MaVach)
+                && sp.getSoLuong()== SoLuong
+                && sp.getDungTich()== DungTich
+                && sp.getDonGia()== DonGia){              
+                
+                return true;
+            }
+                System.out.println(sp.toString());
+        }
+        return false;
+    }
+    public void exportExcel(ArrayList<SanPhamDTO> list, String[] header) {
+        try {
+            if (!list.isEmpty()) {
+                JFileChooser jFileChooser = new JFileChooser();
+                jFileChooser.setDialogTitle("Chọn đường dẫn lưu file Excel");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");
+                jFileChooser.setFileFilter(filter);
+                jFileChooser.setAcceptAllFileFilterUsed(false);
+                jFileChooser.showSaveDialog(owner);
+                File saveFile = jFileChooser.getSelectedFile();
+                if (saveFile != null) {
+                    if (!saveFile.toString().toLowerCase().endsWith(".xlsx")) {
+                        saveFile = new File(saveFile.toString() + ".xlsx");
+                    }
+                    Workbook wb = new XSSFWorkbook();
+                    Sheet sheet = wb.createSheet("Sản phẩm");
+
+                    writeHeader(header, sheet, 0);
+                    int rowIndex = 1;
+                    for (SanPhamDTO sp : list) {
+                        Row row = sheet.createRow(rowIndex++);
+                        writeSanPham(sp, row);
+                    }
+                    FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+                    wb.write(out);
+                    wb.close();
+                    out.close();
+                    openFile(saveFile.toString());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private static void writeHeader(String[] list, Sheet sheet, int rowIndex) {
+        CellStyle cellStyle = createStyleForHeader(sheet);
+        Row row = sheet.createRow(rowIndex);
+        Cell cell;
+        for (int i = 0; i < list.length; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(list[i]);
+            sheet.autoSizeColumn(i);
+        }
+    }
+    private static CellStyle createStyleForHeader(Sheet sheet) {
+        // Create font
+        Font font = sheet.getWorkbook().createFont();
+        font.setFontName("Times New Roman");
+        font.setBold(true);
+        font.setFontHeightInPoints((short) 14); // font size
+        font.setColor(IndexedColors.WHITE.getIndex()); // text color
+
+        // Create CellStyle
+        CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+        cellStyle.setFont(font);
+        cellStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        return cellStyle;
+    }
+
+    private static void writeSanPham(SanPhamDTO nv, Row row) {
+        CellStyle cellStyleFormatNumber = null;
+        if (cellStyleFormatNumber == null) {
+            // Format number
+            short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
+            // DataFormat df = workbook.createDataFormat();
+            // short format = df.getFormat("#,##0");
+
+            //Create CellStyle
+            Workbook workbook = row.getSheet().getWorkbook();
+            cellStyleFormatNumber = workbook.createCellStyle();
+            cellStyleFormatNumber.setDataFormat(format);
+        }
+        Cell cell = row.createCell(0);
+        cell.setCellValue(nv.getMaSP());
+
+        cell = row.createCell(1);
+        cell.setCellValue(nv.getMaLoai());
+
+        cell = row.createCell(2);
+        cell.setCellValue(nv.getMaHang());
+
+        cell = row.createCell(3);
+        cell.setCellValue(nv.getMaDV());
+
+        cell = row.createCell(4);
+        cell.setCellValue(nv.getMaVach());
+
+        cell = row.createCell(5);
+        cell.setCellValue("" + nv.getTenSP());
+        
+        cell = row.createCell(6);
+        cell.setCellValue("" + nv.getDonGia());
+        
+        cell = row.createCell(7);
+        cell.setCellValue("" + nv.getSoLuong());
+        
+        cell = row.createCell(8);
+        cell.setCellValue("" + nv.getDungTich());
+        
+        cell = row.createCell(9);
+        cell.setCellValue("" + nv.getNgaySanXuat());
+        
+        cell = row.createCell(10);
+        cell.setCellValue("" + nv.getHanSuDung());
+    }
+    public void openFile(String file) {
+        try {
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 }
